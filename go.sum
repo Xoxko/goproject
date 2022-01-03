@@ -1,0 +1,6 @@
+github.com/teh-cmc/go-sfml v0.0.0-20170911223535-25d755527155 h1:SdRPNQp0HGWQvsb6r0FaxjXqmxuadviq9SKiU+O00Jw=
+github.com/teh-cmc/go-sfml v0.0.0-20170911223535-25d755527155/go.mod h1:F21hEFBbND6kyomYzhb+/RdmPb6shKH38rD6f9aI8F8=
+github.com/veandco/go-sdl2 v0.4.10 h1:8QoD2bhWl7SbQDflIAUYWfl9Vq+mT8/boJFAUzAScgY=
+github.com/veandco/go-sdl2 v0.4.10/go.mod h1:OROqMhHD43nT4/i9crJukyVecjPNYYuCofep6SNiAjY=
+gopkg.in/teh-cmc/go-sfml.v24 v24.0.0-20170910220153-372cfe28f3e7 h1:bej0Q+j0OUwOktQB1jGyks1IzPZABXCD7U1pvSyU2oY=
+gopkg.in/teh-cmc/go-sfml.v24 v24.0.0-20170910220153-372cfe28f3e7/go.mod h1:v+GAYMtZLqXbE4kZxNX3DbQfC1k9w5xIyWO4n9jmVto=
