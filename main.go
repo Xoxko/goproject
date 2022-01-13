@@ -7,15 +7,7 @@ import (
 
 func main() {
 	chip := src.InitCPU("PONG")
-
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
-	fmt.Println(chip.OpcodeRun())
+	for i := 25; i == 0; i-- {
+		fmt.Println(chip.OpcodeText())
+	}
 }

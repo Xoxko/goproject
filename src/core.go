@@ -237,3 +237,149 @@ func (c *cpu) OpcodeRun() string {
 	}
 	return " "
 }
+
+func (c *cpu) OpcodeText() string {
+	var comand string
+
+	mem := c.mem
+	pc := &c.ALU.pc
+	opcode := uint16(mem[*pc])
+
+	X := (0x0F00 & opcode) >> 8
+	Y := (0x00F0 & opcode) >> 4
+
+	switch opcode & 0xF000 {
+	case 0x0000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- 0x00E0-CLS", *pc)
+		return comand
+
+	case 0x1000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-JP", *pc, opcode)
+		return comand
+
+	case 0x2000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-CALL", *pc, opcode)
+		return comand
+
+	case 0x3000:
+		if c.ALU.vx[X] == byte(opcode&0x00FF) {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+2==", *pc, opcode)
+			return comand
+		} else {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+1==", *pc, opcode)
+			return comand
+		}
+
+	case 0x4000:
+		if c.ALU.vx[X] != byte(opcode&0x00FF) {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+2!=", *pc, opcode)
+			return comand
+		} else {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+1!=", *pc, opcode)
+			return comand
+		}
+
+	case 0x5000:
+		if c.ALU.vx[X] == c.ALU.vx[Y] {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+2", *pc, opcode)
+			return comand
+		} else {
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SE+1", *pc, opcode)
+			return comand
+		}
+
+	case 0x6000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-SET", *pc, opcode)
+		return comand
+
+	case 0x7000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-SET", *pc, opcode)
+		return comand
+
+	case 0x8000:
+		//==================================================================================
+		switch opcode & 0x000F {
+		case 0x0000:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-OR", *pc, opcode)
+			return comand
+
+		case 0x0001:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-OR", *pc, opcode)
+			return comand
+
+		case 0x0002:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-AND", *pc, opcode)
+			return comand
+
+		case 0x0003:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-XOR", *pc, opcode)
+			return comand
+
+		case 0x0004:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-ADD(vx,vf)", *pc, opcode)
+			return comand
+
+		case 0x0005:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SUB(vx,vf)", *pc, opcode)
+			return comand
+
+		case 0x0006:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SHR(vx,vf)", *pc, opcode)
+			return comand
+
+		case 0x0007:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SUBN(vx,vf)", *pc, opcode)
+			return comand
+
+		case 0x000E:
+			*pc++
+			comand = fmt.Sprintf("> %X -- %X-SHL(vx,vf)", *pc, opcode)
+			return comand
+		}
+		//==================================================================================
+	case 0x9000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-SNE", *pc, opcode)
+		return comand
+
+	case 0xA000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-LD", *pc, opcode)
+		return comand
+
+	case 0xB000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-JP", *pc, opcode)
+		return comand
+
+	case 0xC000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-RND", *pc, opcode)
+		return comand
+
+	case 0xD000:
+		*pc++
+		comand = fmt.Sprintf("> %X -- %X-WIND", *pc, opcode)
+		return comand
+	}
+	return "NOOOOOP"
+}
