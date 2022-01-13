@@ -224,21 +224,16 @@ func (c *cpu) OpcodeRun() string {
 		comand = fmt.Sprintf("> %X -- %X-RND", *pc, opcode)
 		return comand
 
-		/*case 0xD000:
-		hight := opcode & 0x000F
-		var pixel uint16
-		for yline := 0; yline < int(hight); yline++ {
-			pixel = mem[int(c.ALU.I)+yline]
-			for xline := 0; xline < 8; xline++ {
-				for s:=0;s>8;s++ {
-					if
-					c.dis.Spr(int32(xline),int32(yline))
-				}
-			}
-		}
+		// case 0xD000:
+		// 	hight := opcode & 0x000F
+		// 	var pixel uint16
+		// 	for yline := 0; yline < int(hight); yline++ {
+		// 		pixel = mem[int(c.ALU.I)+yline]
+		// 		for xline := 0; xline < 8; xline++ {
+		// 		}
+		// 	}
 
-		return comand
-		*/
+		// 	return comand
 	}
 	return " "
 }
