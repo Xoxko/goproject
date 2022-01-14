@@ -14,7 +14,7 @@ type cpu struct {
 
 type alu struct {
 	steck  [16]byte
-	vx     [0xF]byte
+	vx     [16]byte
 	st, vf byte
 	pc, I  uint16
 }
@@ -380,6 +380,8 @@ func (c *cpu) OpcodeText() string {
 		*pc++
 		comand = fmt.Sprintf("> %X -- %X-WIND", *pc, opcode)
 		return comand
+
 	}
-	return "NOOOOOP"
+	*pc++
+	return "1"
 }
