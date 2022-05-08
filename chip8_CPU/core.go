@@ -1,4 +1,4 @@
-package src
+package chip8
 
 import (
 	"fmt"

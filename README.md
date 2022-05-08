@@ -1,1 +1,1 @@
-# goproject
+# CHIP8 Эмулятор
