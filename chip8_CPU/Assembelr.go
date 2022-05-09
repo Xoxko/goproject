@@ -91,7 +91,7 @@ func (alu *alu) math(asm uint16) {
 		buf := uint16(alu.vx[X]) + uint16(alu.vx[Y])
 		alu.pc += 2
 		alu.vx[X] = uint8(0x00FF & buf)
-		alu.vf = bool(((0xFF00 & buf) >> 8) > 255)
+		alu.vf = bool((0xFF00 & buf) > 255)
 
 	case 0x0005:
 		buf := uint16(alu.vx[X]) - uint16(alu.vx[Y])
