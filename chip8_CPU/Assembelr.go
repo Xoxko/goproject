@@ -140,10 +140,35 @@ func (alu *alu) jm(NNN uint16) {
 	alu.pc = uint16(alu.vx[0]) + NNN
 }
 
-//Счетчик alu.pc устанавливаеться alu.vx[0] + NNN
+//Рандомное значение для alu.vx[X] = random & NN
 func (alu *alu) rand(XNN uint16) {
 	X := (0x0F00 & XNN) >> 8
 	NN := XNN & 0x00FF
 	alu.vx[X] = byte(rand.Int31n(256)) & byte(NN)
 	alu.pc += 2
+}
+
+func (cpu *cpu) draws(XYK uint16) {
+	X := (0x0F00 & XYK) >> 8
+	Y := (0x00F0 & XYK) >> 4
+	K := (0x000F & XYK)
+
+	cpu.ALU.vx[0xF] = 0
+
+	var j uint16 = 0
+	var i uint16 = 0
+	for ; j < K; j++ {
+		pixel := cpu.mem[cpu.ALU.i+j]
+		for ; i < 8; i++ {
+			if (pixel & (0x80 >> i)) != 0 {
+				if cpu.display[Y+j][X+i] == 1 {
+					cpu.ALU.vx[0xF] = 1
+				}
+				cpu.display[Y+j][X+i] ^= 1
+			}
+
+		}
+	}
+	cpu.sholdDraw = true
+	cpu.ALU.pc += 2
 }

@@ -1,14 +1,7 @@
 package chip8_CPU
 
-import (
-	"fmt"
-	"math/rand"
-)
-
 func (c *cpu) OpcodeRun(asm uint16) error {
 
-	X := (0x0F00 & asm) >> 8
-	Y := (0x00F0 & asm) >> 4
 	NNN := (0x0FFF & asm)
 
 	switch asm & 0xF000 {
@@ -59,13 +52,13 @@ func (c *cpu) OpcodeRun(asm uint16) error {
 		return nil
 
 	case 0xC000:
-		c.ALU.steck[X] = uint8(rand.Intn(256)) & uint8(0x00FF&opcode)
-		comand = fmt.Sprintf("> %X -- %X-RND", *pc, opcode)
-		return comand
+		c.ALU.rand(NNN)
+		return nil
 
 	case 0xD000:
-		return comand
+		c.draws(NNN)
+		return nil
 
 	}
-	return " "
+	return nil
 }
