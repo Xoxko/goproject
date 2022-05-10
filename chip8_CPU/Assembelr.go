@@ -1,6 +1,9 @@
 package chip8_CPU
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+)
 
 func (cpu *cpu) sys() error {
 	return fmt.Errorf("call ")
@@ -113,4 +116,34 @@ func (alu *alu) math(asm uint16) {
 		alu.vx[X] <<= 1
 		alu.pc += 2
 	}
+}
+
+//Сравнение vx[X] != vx[Y]
+func (alu *alu) sne(XY0 uint16) {
+	X := (0x0F00 & XY0) >> 8
+	Y := (0x00F0 & XY0) >> 4
+	if alu.vx[X] != alu.vx[Y] {
+		alu.pc += 4
+	} else {
+		alu.pc += 2
+	}
+}
+
+//Вставить значание NNN в alu.i
+func (alu *alu) ldd(NNN uint16) {
+	alu.i = NNN
+	alu.pc += 2
+}
+
+//Счетчик alu.pc устанавливаеться alu.vx[0] + NNN
+func (alu *alu) jm(NNN uint16) {
+	alu.pc = uint16(alu.vx[0]) + NNN
+}
+
+//Счетчик alu.pc устанавливаеться alu.vx[0] + NNN
+func (alu *alu) rand(XNN uint16) {
+	X := (0x0F00 & XNN) >> 8
+	NN := XNN & 0x00FF
+	alu.vx[X] = byte(rand.Int31n(256)) & byte(NN)
+	alu.pc += 2
 }
