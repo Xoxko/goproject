@@ -16,6 +16,7 @@ type alu struct {
 	sp    byte //steck pointer
 	vf    bool
 	pc    uint16 //program counter
+	i     uint16
 }
 
 func errorFunc(s string, err error) {

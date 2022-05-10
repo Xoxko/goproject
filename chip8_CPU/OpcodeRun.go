@@ -43,29 +43,20 @@ func (c *cpu) OpcodeRun(asm uint16) error {
 		c.ALU.add(NNN)
 		return nil
 	case 0x8000:
-		c.ALU.math(asm)
+		c.ALU.math(NNN)
 		return nil
 
 	case 0x9000:
-		if c.ALU.vx[X] != c.ALU.vx[Y] {
-			*pc++
-		}
-		*pc++
-		comand = fmt.Sprintf("> %X -- %X-SNE", *pc, opcode)
-		return comand
+		c.ALU.sne(NNN)
+		return nil
 
 	case 0xA000:
-		if c.ALU.vx[X] != c.ALU.vx[Y] {
-			*pc++
-		}
-		*pc++
-		comand = fmt.Sprintf("> %X -- %X-LD", *pc, opcode)
-		return comand
+		c.ALU.ldd(NNN)
+		return nil
 
 	case 0xB000:
-		*pc = (NNN + uint16(c.ALU.vx[0])) & 0x0FFF
-		comand = fmt.Sprintf("> %X -- %X-JP", *pc, opcode)
-		return comand
+		c.ALU.jm(NNN)
+		return nil
 
 	case 0xC000:
 		c.ALU.steck[X] = uint8(rand.Intn(256)) & uint8(0x00FF&opcode)
