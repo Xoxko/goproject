@@ -1,5 +1,9 @@
 package chip8_CPU
 
+
+func (c *cpu) Key(s uint8, d bool){
+
+}
 func (c *cpu) OpcodeRun(asm uint16) error {
 
 	NNN := (0x0FFF & asm)
@@ -57,6 +61,10 @@ func (c *cpu) OpcodeRun(asm uint16) error {
 
 	case 0xD000:
 		c.draws(NNN)
+		return nil
+
+	case 0xE000:
+		c.
 		return nil
 
 	}
