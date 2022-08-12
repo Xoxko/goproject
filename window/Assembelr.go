@@ -1,3 +1,6 @@
+
+/*
+
 package chip8_CPU
 
 import (
@@ -172,3 +175,6 @@ func (cpu *cpu) draws(XYK uint16) {
 	cpu.sholdDraw = true
 	cpu.ALU.pc += 2
 }
+
+
+*/
