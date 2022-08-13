@@ -1,75 +1,15 @@
-
-/*
-
 package chip8_CPU
 
 import (
 	"fmt"
-	"math/rand"
 )
 
-func (cpu *cpu) sys() error {
+func (cpu *cpu_chip8) sys() error {
 	return fmt.Errorf("call ")
 }
 
-//Прыгнуть на адрес
-func (alu *alu) jump(asm uint16) {
-	alu.pc = asm & 0x0FFF
-}
+/*
 
-//Вызвать подпрограмму
-func (alu *alu) call(asm uint16) {
-	alu.steck[alu.sp] = byte(alu.pc)
-	alu.sp++
-	alu.pc = asm & 0x0FFF
-}
-
-//Сравнение vx[X] == 00NN
-func (alu *alu) se(XNN uint16) {
-	X := (0x0F00 & XNN) >> 8
-	if alu.vx[X] == byte(XNN&0x00FF) {
-		alu.pc += 4
-	} else {
-		alu.pc += 2
-	}
-}
-
-//Сравнение vx[X] != 00NN
-func (alu *alu) sen(XNN uint16) {
-	X := (0x0F00 & XNN) >> 8
-
-	if alu.vx[X] != byte(XNN&0x00FF) {
-		alu.pc += 4
-	} else {
-		alu.pc += 2
-	}
-}
-
-//Сравнение vx[X] == vx[Y]
-func (alu *alu) sevx(XY0 uint16) {
-	X := (0x0F00 & XY0) >> 8
-	Y := (0x00F0 & XY0) >> 4
-
-	if alu.vx[X] == alu.vx[Y] {
-		alu.pc += 4
-	} else {
-		alu.pc += 2
-	}
-}
-
-//Вставить значание в vx[X] из 00NN
-func (alu *alu) ld(XNN uint16) {
-	X := (0x0F00 & XNN) >> 8
-	alu.vx[X] = byte(XNN & 0x00FF)
-	alu.pc += 2
-}
-
-//Сложение X = X + NN
-func (alu *alu) add(XNN uint16) {
-	X := (0x0F00 & XNN) >> 8
-	alu.vx[X] += byte(XNN & 0x00FF)
-	alu.pc += 2
-}
 
 //Математические и бинарные выполнение команд
 func (alu *alu) math(asm uint16) {

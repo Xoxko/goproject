@@ -1,5 +1,7 @@
 package chip8_CPU
 
+import "log"
+
 //память хранения программы 0x000-0x200 зарезервированно для fontSet
 type ram struct {
 	memory [0x1000]uint8
@@ -23,17 +25,36 @@ type cpu_chip8 struct {
 }
 
 type alu struct {
-	input [2]uint8
+	vx     *register
+	opcode *[2]uint8
 }
 
 //стек вызовов подпрограмм
-type steck [16]uint8
+type steck struct {
+	steck [16]uint16
+	sp    uint16
+}
 
 //регистры Vx and Vy
 type register [16]uint8
 
 func Init_chip8() *chip8 {
-	return &chip8{}
+	chip := chip8{}
+	chip.CPU.al.vx = &chip.CPU.vx
+	chip.CPU.al.opcode = &chip.CPU.opcode
+	return &chip
+}
+
+func (c *chip8) Step() {
+	cp := &c.CPU
+	var err error
+	for i := range cp.opcode {
+		cp.opcode[i], err = c.MEM.Read(cp.pc)
+		if err != nil {
+			log.Println(err)
+		}
+		cp._pc(1)
+	}
 }
 
 var fontSet = [80]uint8{

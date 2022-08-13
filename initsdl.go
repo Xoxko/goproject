@@ -1,5 +1,6 @@
 package main
 
+/*
 import "github.com/veandco/go-sdl2/sdl"
 
 func initsdl(name string, midifick int32) *sdl.Window {
@@ -21,3 +22,4 @@ func initsdl(name string, midifick int32) *sdl.Window {
 
 	return window
 }
+*/

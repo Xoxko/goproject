@@ -4,7 +4,6 @@ import "fmt"
 
 func (r *ram) Write(addres uint16, data uint8) error {
 	buffer := addres & 0xf000
-	addres = addres & 0x0fff
 	if buffer != 0 {
 		return fmt.Errorf("Адрес %v должен находиться в дипазоне 0x0000 - 0x0fff", addres)
 	}
